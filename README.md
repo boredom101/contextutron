@@ -8,4 +8,6 @@ On Ubuntu, run both:
 `pip3 install dbus-python cairosvg pyxdg`
 
 ## Running
-./swish.sh
+enter the name of your theme.
+
+`./swish.sh [theme]`
