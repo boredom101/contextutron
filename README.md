@@ -11,3 +11,7 @@ On Ubuntu, run both:
 enter the name of your theme.
 
 `./swish.sh [theme]`
+
+## Screenshot
+
+![Screenshot](screenshot.png)
