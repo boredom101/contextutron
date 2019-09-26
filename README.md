@@ -12,6 +12,10 @@ enter the name of your theme.
 
 `./swish.sh [theme]`
 
-## Screenshot
+## Screenshots
 
+### Kate
 ![Screenshot](screenshot.png)
+
+### Gedit
+![Screenshot](screenshot2.png)
