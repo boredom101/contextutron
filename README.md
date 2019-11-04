@@ -12,7 +12,7 @@ run in the following way:
 
 `./swish.sh -t <theme> [-s <icon size>] [-x]`
 
-`-x` activates splash mode, in which there is no window decorations.
+`-x` activates dock mode, in which there are no window decorations.
 
 ## Screenshots
 
