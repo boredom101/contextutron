@@ -12,6 +12,10 @@ from tkinter.ttk import Button
 from cairosvg import svg2png
 
 theme = sys.argv[1]
+size = sys.argv[2]
+splash = False
+if sys.argv[3] == "ON":
+    splash = True
 
 buttons = []
 gbuttons = []
@@ -115,7 +119,7 @@ def my_mainloop(root, buttons, gbuttons):
                 gbutton.button.destroy()
             gbuttons = []
             for button in buttons:
-                gbutton = GButton(theme, root, button)
+                gbutton = GButton(theme, root, button, size)
                 gbuttons.append(gbutton)
                 gbutton.button.pack(side = TOP)
 
