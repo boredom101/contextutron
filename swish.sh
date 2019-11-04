@@ -14,14 +14,12 @@ while getopts "t:s:xh" opt; do
     x )
         SPLASH="ON"
       ;;
-    \? ) echo "Usage: swish -t <theme> [-s <icon size>] [-x]"
-         exit 0
-      ;;
   esac
 done
 
-echo Theme: $THEME
-echo Size: $SIZE
-echo Splash $SPLASH
+if (( $OPTIND == 1 )); then
+   echo "Usage: swish -t <theme> [-s <icon size>] [-x]"
+   exit 0
+fi
 
 ./pid.sh | python3 main.py $THEME $SIZE $SPLASH

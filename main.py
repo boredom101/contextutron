@@ -12,7 +12,7 @@ from tkinter.ttk import Button
 from cairosvg import svg2png
 
 theme = sys.argv[1]
-size = sys.argv[2] or 24
+size = int(sys.argv[2] or 24)
 splash = False
 if sys.argv[3] == "ON":
     splash = True
@@ -125,5 +125,8 @@ def my_mainloop(root, buttons, gbuttons):
 
 thread = threading.Thread(target=my_mainloop, args=(root, buttons, gbuttons))
 thread.start()
+
+if splash:
+    root.attributes('-type', 'dock')
 
 root.mainloop()
