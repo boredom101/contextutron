@@ -3,7 +3,7 @@
 SPLASH="OFF"
 while getopts "t:s:xh" opt; do
   case ${opt} in
-    h ) echo "Usage: swish [-t <theme>] [-s <icon size>] [-x]"
+    h ) echo "Usage: swish -t <theme> [-s <icon size>] [-x]"
         exit 0
       ;;
     t ) THEME="$OPTARG"
@@ -14,7 +14,7 @@ while getopts "t:s:xh" opt; do
     x )
         SPLASH="ON"
       ;;
-    \? ) echo "Usage: swish [-t <theme>] [-s <icon size>] [-x]"
+    \? ) echo "Usage: swish -t <theme> [-s <icon size>] [-x]"
          exit 0
       ;;
   esac

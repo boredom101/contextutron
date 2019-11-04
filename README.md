@@ -8,9 +8,11 @@ On Ubuntu, run both:
 `pip3 install dbus-python cairosvg pyxdg`
 
 ## Running
-enter the name of your theme.
+run in the following way:
 
-`./swish.sh [theme]`
+`./swish.sh -t <theme> [-s <icon size>] [-x]`
+
+`-x` activates splash mode, in which there is no window decorations.
 
 ## Screenshots
 

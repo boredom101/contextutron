@@ -12,7 +12,7 @@ from tkinter.ttk import Button
 from cairosvg import svg2png
 
 theme = sys.argv[1]
-size = sys.argv[2]
+size = sys.argv[2] or 24
 splash = False
 if sys.argv[3] == "ON":
     splash = True
