@@ -3,13 +3,14 @@ import sys
 from plugin import Plugin
 from button import Button as ButtonData
 from gbutton import GButton
+from row import plugins as row_plugins
+from grow import GRow
 import xml.etree.ElementTree as ET
 import re
 import threading
 
-from tkinter import Tk, PhotoImage, TOP
+from tkinter import Tk, PhotoImage, RIGHT
 from tkinter.ttk import Button
-from cairosvg import svg2png
 
 theme = sys.argv[1]
 size = int(sys.argv[2] or 24)
@@ -46,10 +47,10 @@ def get_name(bus, pid):
             result.append(name)
     return result
 
-def plugin_filter(names):
+def plugin_filter(names, plugs):
     result = {}
     for name in names:
-        for plugin in plugins.values():
+        for plugin in plugs.values():
             if plugin.check(name):
                 result[name] = plugin.name
                 break
@@ -80,7 +81,7 @@ def kde_getter(bus, name):
         if ("KDE_" + item.split("/")[-2]) in icons:
             icon = icons["KDE_" + item.split("/")[-2]]
             method = bus.get_object(name, item[0:-1]).trigger
-            buttons.append(ButtonData(method, [], icon, "org.qtproject.Qt.QAction"))
+            buttons.append(ButtonData(method, [], icon, "org.qtproject.Qt.QAction", icon))
     return buttons
 
 def gnome_getter(bus, name):
@@ -90,7 +91,7 @@ def gnome_getter(bus, name):
     for item in items:
         if ("GNOME_" + item) in icons:
             icon = icons["GNOME_" + item]
-            buttons.append(ButtonData(method, [item, dbus.Array([], signature='s'), dbus.Dictionary({}, signature='ss')], icon, "org.gtk.Actions"))
+            buttons.append(ButtonData(method, [item, dbus.Array([], signature='s'), dbus.Dictionary({}, signature='ss')], icon, "org.gtk.Actions", icon))
     return buttons
 
 plugins = {"kde-app": Plugin("kde-app", "^org\.kde\.[a-z]+-[0-9]+", kde_getter),
@@ -109,19 +110,30 @@ def my_mainloop(root, buttons, gbuttons):
         buttons = []
         names = {}
         pid = int(sys.stdin.readline())
-        temp = plugin_filter(get_name(bus, pid))
+        temp = plugin_filter(get_name(bus, pid), plugins)
         if temp:
             names = temp
         for name in names:
             buttons = plugins[names[name]].getter(bus, name)
-        if buttons:
-            for gbutton in gbuttons:
-                gbutton.button.destroy()
-            gbuttons = []
+        row_names = plugin_filter(get_name(bus, pid), row_plugins)
+        rows = []
+        for row in row_names:
+            rows.append(row_plugins[row_names[row]].getter(bus, row))
+        if buttons or rows:
+            new_buttons = []
             for button in buttons:
                 gbutton = GButton(theme, root, button, size)
-                gbuttons.append(gbutton)
-                gbutton.button.pack(side = TOP)
+                new_buttons.append(gbutton)
+            for row in rows:
+                grow = GRow(theme, root, row, size)
+                new_buttons.append(grow)
+            add = set(new_buttons) - set(gbuttons)
+            destroy = set(gbuttons) - set(new_buttons)
+            for item in add:
+                item.view.pack(side = RIGHT)
+            for item in destroy:
+                item.destroy()
+            gbuttons = new_buttons
 
 thread = threading.Thread(target=my_mainloop, args=(root, buttons, gbuttons))
 thread.start()

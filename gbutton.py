@@ -8,4 +8,10 @@ class GButton:
         name = IconTheme.getIconPath(data.icon, theme=theme)
         self.photo = PhotoImage(data = svg2png(url = name, parent_width = size, parent_height = size))
         self.data = data
-        self.button = Button(root, image = self.photo, command = self.data.call)
+        self.view = Button(root, image = self.photo, command = self.data.call, text = data.text, compound="left")
+    
+    def __hash__(self):
+        return hash(self.data)
+    
+    def destroy(self):
+        self.view.destroy()

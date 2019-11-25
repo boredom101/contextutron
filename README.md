@@ -16,8 +16,5 @@ run in the following way:
 
 ## Screenshots
 
-### Kate
-![Screenshot](screenshot.png)
-
-### Gedit
-![Screenshot](screenshot2.png)
+### Konsole
+![Screenshot](example.gif)
