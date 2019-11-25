@@ -3,6 +3,7 @@ A TouchBar for Linux
 
 ## Requirements
 On Ubuntu, run both:
+
 `sudo apt-get install xdotool python3-tk`
 
 `pip3 install dbus-python cairosvg pyxdg`
@@ -10,7 +11,7 @@ On Ubuntu, run both:
 ## Running
 run in the following way:
 
-`./swish.sh -t <theme> [-s <icon size>] [-x]`
+`./contextutron.sh -t <theme> [-s <icon size>] [-x]`
 
 `-x` activates dock mode, in which there are no window decorations.
 
